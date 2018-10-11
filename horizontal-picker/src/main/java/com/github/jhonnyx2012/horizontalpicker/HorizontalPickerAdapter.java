@@ -65,9 +65,9 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
 
             if (enabledDays.size() > 0) {
                 //add offset
-                if (actualDate < currentDate)
+                if (actualDate.getMillis() < currentDate.getMillis())
                     items.add(new Day(actualDate));
-                else if (actualDate >= currentDate) {
+                else if (actualDate.getMillis() >= currentDate.getMillis()) {
                     if (enabledDays.contains(actualDate.toString("dd.MM.YYYY")))
                         items.add(new Day(actualDate));
                 }
