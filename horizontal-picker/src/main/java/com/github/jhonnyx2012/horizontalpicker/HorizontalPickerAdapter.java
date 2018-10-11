@@ -72,7 +72,8 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
                         items.add(new Day(actualDate));
                 }
 
-            }
+            } else
+                items.add(new Day(actualDate));
 
 
         }
