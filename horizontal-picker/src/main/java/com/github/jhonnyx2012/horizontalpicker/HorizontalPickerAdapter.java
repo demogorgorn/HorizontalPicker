@@ -35,12 +35,14 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
     private int itemWidth;
     private final OnItemClickedListener listener;
     private ArrayList<Day> items;
+    private ArrayList<String> enabledDays;
     
 
-    public HorizontalPickerAdapter(int itemWidth, OnItemClickedListener listener, Context context, int daysToCreate, int offset, int mBackgroundColor, int mDateSelectedColor, int mDateSelectedTextColor, int mTodayDateTextColor, int mTodayDateBackgroundColor, int mDayOfWeekTextColor, int mUnselectedDayTextColor) {
+    public HorizontalPickerAdapter(int itemWidth, OnItemClickedListener listener, Context context, int daysToCreate, int offset, ArrayList<String> enabledDays, int mBackgroundColor, int mDateSelectedColor, int mDateSelectedTextColor, int mTodayDateTextColor, int mTodayDateBackgroundColor, int mDayOfWeekTextColor, int mUnselectedDayTextColor) {
         items=new ArrayList<>();
         this.itemWidth=itemWidth;
         this.listener=listener;
+        this.enabledDays=enabledDays;
         generateDays(daysToCreate,new DateTime().minusDays(offset).getMillis(),false);
         this.mBackgroundColor=mBackgroundColor;
         this.mDateSelectedTextColor=mDateSelectedTextColor;
@@ -55,10 +57,24 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
         if(cleanArray)
             items.clear();
         int i=0;
+        DateTime currentDate = new DateTime();
+
         while(i<n)
         {
             DateTime actualDate = new DateTime(initialDate + (DAY_MILLIS * i++));
-            items.add(new Day(actualDate));
+
+            if (enabledDays.size() > 0) {
+                //add offset
+                if (actualDate < currentDate)
+                    items.add(new Day(actualDate));
+                else if (actualDate >= currentDate) {
+                    if (enabledDays.contains(actualDate.toString("dd.MM.YYYY")))
+                        items.add(new Day(actualDate));
+                }
+
+            }
+
+
         }
     }
 

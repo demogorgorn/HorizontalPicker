@@ -41,7 +41,7 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
         super(context, attrs, defStyle);
     }
 
-    public void init(Context context, final int daysToPlus, final int initialOffset, final int mBackgroundColor, final int mDateSelectedColor, final int mDateSelectedTextColor, final int mTodayDateTextColor, final int mTodayDateBackgroundColor, final int mDayOfWeekTextColor, final int mUnselectedDayTextColor) {
+    public void init(Context context, final int daysToPlus, final int initialOffset, final ArrayList<String> enabledDays, final int mBackgroundColor, final int mDateSelectedColor, final int mDateSelectedTextColor, final int mTodayDateTextColor, final int mTodayDateBackgroundColor, final int mDayOfWeekTextColor, final int mUnselectedDayTextColor) {
         this.offset=initialOffset;
         layoutManager=new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         setLayoutManager(layoutManager);
@@ -49,7 +49,7 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
             @Override
             public void run() {
                 itemWidth=getMeasuredWidth()/7;
-                adapter=new HorizontalPickerAdapter((int) itemWidth,HorizontalPickerRecyclerView.this, getContext(),daysToPlus,initialOffset,mBackgroundColor,mDateSelectedColor,mDateSelectedTextColor,mTodayDateTextColor,
+                adapter=new HorizontalPickerAdapter((int) itemWidth,HorizontalPickerRecyclerView.this, getContext(),daysToPlus,initialOffset,enabledDays,mBackgroundColor,mDateSelectedColor,mDateSelectedTextColor,mTodayDateTextColor,
                         mTodayDateBackgroundColor,
                         mDayOfWeekTextColor,
                         mUnselectedDayTextColor);

@@ -38,6 +38,7 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
     private int mTodayDateBackgroundColor = -1;
     private int mDayOfWeekTextColor = -1;
     private int mUnselectedDayTextColor = -1;
+    private ArrayList<String> mEnabledDays = new ArrayList<>();
 
     public HorizontalPicker(Context context) {
         super(context);
@@ -112,6 +113,7 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
                 getContext(),
                 finalDays,
                 finalOffset,
+                mEnabledDays,
                 mBackgroundColor,
                 mDateSelectedColor,
                 mDateSelectedTextColor,
@@ -225,6 +227,11 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
 
     public HorizontalPicker setMonthPattern(String pattern) {
         mMonthPattern = pattern;
+        return this;
+    }
+
+    public HorizontalPicker setEnabledDays(ArrayList list) {
+        mEnabledDays = list;
         return this;
     }
 }
