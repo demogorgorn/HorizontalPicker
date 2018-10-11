@@ -58,12 +58,13 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
             items.clear();
         int i=0;
         DateTime currentDate = new DateTime();
+        boolean enabledDaysMode = enabledDays.size() > 0;
 
         while(i<n)
         {
             DateTime actualDate = new DateTime(initialDate + (DAY_MILLIS * i++));
 
-            if (enabledDays.size() > 0) {
+            if (enabledDaysMode) {
                 //add offset
                 if (actualDate.getMillis() < currentDate.getMillis())
                     items.add(new Day(actualDate));
@@ -74,9 +75,18 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
 
             } else
                 items.add(new Day(actualDate));
-
-
         }
+
+        if (enabledDaysMode) {
+            if (items.size() > 0) {
+                DateTime lastDay = items.get(items.size() - 1).getDate();
+                for (int e = 1; e < 8; e++ ) {
+                    items.add(new Day(lastDay.plusDays(e)));
+                    
+                }
+            }
+        }
+        
     }
 
 
