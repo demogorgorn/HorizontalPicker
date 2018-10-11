@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import java.util.ArrayList;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;

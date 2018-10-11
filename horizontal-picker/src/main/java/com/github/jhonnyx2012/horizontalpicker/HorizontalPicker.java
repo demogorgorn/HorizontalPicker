@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.joda.time.DateTime;
+import java.util.ArrayList;
 
 /**
  * Created by Jhonny Barrios on 22/02/2017.
@@ -230,7 +231,7 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
         return this;
     }
 
-    public HorizontalPicker setEnabledDays(ArrayList list) {
+    public HorizontalPicker setEnabledDays(ArrayList<String> list) {
         mEnabledDays = list;
         return this;
     }
