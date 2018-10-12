@@ -102,14 +102,27 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
                         .inflate(R.layout.item_day,parent,false));
     }
 
+    private void setViewAndChildrenEnabled(View view, boolean enabled) {
+        view.setEnabled(enabled);
+        if (view instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) view;
+            for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                View child = viewGroup.getChildAt(i);
+                setViewAndChildrenEnabled(child, enabled);
+            }
+        }
+    }
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Day item=getItem(position);
 
         if (!item.isVisible())
-            holder.base.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT));
+            setViewAndChildrenEnabled(holder.base, false)
+            //holder.base.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT));
         else
-            holder.base.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            setViewAndChildrenEnabled(holder.base, true)
+            //holder.base.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
 
         holder.tvDay.setText(item.getDay());
