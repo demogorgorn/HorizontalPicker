@@ -118,10 +118,10 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
         Day item=getItem(position);
 
         if (!item.isVisible())
-            setViewAndChildrenEnabled(holder.base, false)
+            setViewAndChildrenEnabled(holder.base, false);
             //holder.base.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT));
         else
-            setViewAndChildrenEnabled(holder.base, true)
+            setViewAndChildrenEnabled(holder.base, true);
             //holder.base.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
 
