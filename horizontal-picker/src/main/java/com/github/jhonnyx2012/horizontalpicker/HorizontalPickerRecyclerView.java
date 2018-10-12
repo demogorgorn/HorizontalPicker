@@ -150,7 +150,7 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
 
     public void setDate(DateTime date) {
         DateTime today = new DateTime().withTime(0,0,0,0);
-        Log.d("Horr", Days.daysBetween(date,today).getDays());
+        Log.d("Horr", "days between = " + Days.daysBetween(date,today).getDays());
         Log.d("Horr", "date = " + date.toString("dd.MM.yyyy"));
         int difference = Days.daysBetween(date,today).getDays() * (date.getYear() < today.getMillis() ? -1 : 1);
         smoothScrollToPosition(offset+difference);
