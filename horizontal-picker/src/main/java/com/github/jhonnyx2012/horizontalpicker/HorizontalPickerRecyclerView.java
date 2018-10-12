@@ -158,7 +158,17 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
 
     public void highlightDate(DateTime date) {
         doNotFireListener = true;
-        setDate(date);
+
+        int adapterPosition = adapter.getAdapterPositionForDate(date);
+
+        if(adapterPosition != -1 && adapterPosition != lastPosition) {
+
+            selectItem(true, adapterPosition);
+            selectItem(false, lastPosition);
+            lastPosition = adapterPosition;
+        }
+
+        //setDate(date);
     }
 
     private static class CenterSmoothScroller extends LinearSmoothScroller {

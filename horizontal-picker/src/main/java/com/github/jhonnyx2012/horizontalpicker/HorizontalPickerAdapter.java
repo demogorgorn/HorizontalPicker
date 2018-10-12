@@ -181,6 +181,17 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
         return items.size();
     }
 
+    public int getAdapterPositionForDate(DateTime date) {
+
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getDate().getMillis() == date.getMillis())
+                return i;
+        }
+
+        return -1;
+
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvDay,tvWeekDay;
         LinearLayout base;
