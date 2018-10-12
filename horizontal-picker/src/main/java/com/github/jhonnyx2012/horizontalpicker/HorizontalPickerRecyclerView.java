@@ -163,6 +163,9 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
 
         if(adapterPosition != -1 && adapterPosition != lastPosition) {
 
+            int centerOfScreen = getWidth() / 2 - v.getWidth() / 2;
+            layoutManager.scrollToPositionWithOffset(adapterPosition, centerOfScreen);
+
             highlightItem(true, adapterPosition);
             highlightItem(false, lastPosition);
             lastPosition = adapterPosition;
