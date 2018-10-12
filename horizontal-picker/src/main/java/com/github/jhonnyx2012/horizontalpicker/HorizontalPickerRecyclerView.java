@@ -29,6 +29,7 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
     private float itemWidth;
     private HorizontalPickerListener listener;
     private int offset;
+    private boolean doNotFireListener = false;
 
     public HorizontalPickerRecyclerView(Context context) {
         super(context);
@@ -73,8 +74,15 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
                     int position = (int) ((computeHorizontalScrollOffset()/itemWidth)+3.5);
                     if(position!=-1&&position!=lastPosition)
                     {
-                        selectItem(true,position);
-                        selectItem(false,lastPosition);
+                        if (!doNotFireListener) {
+                            selectItem(true,position);
+                            selectItem(false,lastPosition);
+                        } else {
+                            highlightItem(true,position);
+                            highlightItem(false,lastPosition);
+                            doNotFireListener = false;
+                        }
+
                         lastPosition=position;
                     }
                     break;
@@ -97,6 +105,12 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
         {
             listener.onDateSelected(adapter.getItem(position));
         }
+    }
+
+    // select item without firing listener event
+    private void highlightItem(boolean isSelected,int position) {
+        adapter.getItem(position).setSelected(isSelected);
+        adapter.notifyItemChanged(position);
     }
 
     public void setListener(HorizontalPickerListener listener) {
@@ -138,6 +152,11 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
         DateTime today = new DateTime().withTime(0,0,0,0);
         int difference = Days.daysBetween(date,today).getDays() * (date.getYear() < today.getMillis() ? -1 : 1);
         smoothScrollToPosition(offset+difference);
+    }
+
+    public void highlightDate(DateTime date) {
+        doNotFireListener = true;
+        setDate(date);
     }
 
     private static class CenterSmoothScroller extends LinearSmoothScroller {

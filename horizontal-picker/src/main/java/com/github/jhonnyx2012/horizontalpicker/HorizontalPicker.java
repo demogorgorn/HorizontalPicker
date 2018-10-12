@@ -81,6 +81,15 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
         });
     }
 
+    public void highlightDate(final DateTime date) {
+        rvDays.post(new Runnable() {
+            @Override
+            public void run() {
+                rvDays.highlightDate(date);
+            }
+        });
+    }
+
     public void init() {
         inflate(getContext(), R.layout.horizontal_picker, this);
         rvDays = (HorizontalPickerRecyclerView) findViewById(R.id.rvDays);
