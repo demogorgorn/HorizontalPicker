@@ -161,11 +161,17 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
 
         int adapterPosition = adapter.getAdapterPositionForDate(date);
 
+        Log.d("Highlight", "hDate date = " + date.toString("dd.MM.yyyy"));
+        Log.d("Highlight", "hDate ad pos = " + adapterPosition);
+        Log.d("Highlight", "hDate last pos = " + lastPosition);
+
         if(adapterPosition != -1 && adapterPosition != lastPosition) {
 
             //int centerOfScreen = getWidth() / 2 - v.getWidth() / 2;
             //layoutManager.scrollToPositionWithOffset(adapterPosition, centerOfScreen);
-            layoutManager.scrollToPosition(adapterPosition);
+            //layoutManager.scrollToPosition(adapterPosition);
+
+            smoothScrollToPosition(adapterPosition);
 
             highlightItem(true, adapterPosition);
             highlightItem(false, lastPosition);
