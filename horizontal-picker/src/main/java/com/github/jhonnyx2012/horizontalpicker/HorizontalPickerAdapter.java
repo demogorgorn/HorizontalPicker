@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 
 import org.joda.time.DateTime;
 
@@ -105,11 +106,11 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
     public void onBindViewHolder(ViewHolder holder, int position) {
         Day item=getItem(position);
         if (!item.isVisible())
-            ViewGroup.LayoutParams params = holder.base.getLayoutParams();
+            LinearLayout.LayoutParams params = holder.base.getLayoutParams();
             params.width = 0;
             holder.base.setLayoutParams(params);
         else {
-            ViewGroup.LayoutParams params = holder.base.getLayoutParams();
+            LinearLayout.LayoutParams params = holder.base.getLayoutParams();
             params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
             holder.base.setLayoutParams(params);
         }
