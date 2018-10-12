@@ -13,6 +13,7 @@ public class Day {
     private DateTime date;
     private boolean selected;
     private String monthPattern = "MMMM YYYY";
+    private boolean visible = true;
 
     public Day(DateTime date) {
         this.date = date;
@@ -50,6 +51,14 @@ public class Day {
 
     public boolean isSelected() {
         return selected;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public boolean isVisible() {
+        return visible;
     }
 
 }

@@ -69,8 +69,11 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
                 if (actualDate.getMillis() < currentDate.getMillis())
                     items.add(new Day(actualDate));
                 else if (actualDate.getMillis() >= currentDate.getMillis()) {
-                    if (enabledDays.contains(actualDate.toString("dd.MM.YYYY")))
-                        items.add(new Day(actualDate));
+                    Day day = new Day(actualDate);
+                    if (!enabledDays.contains(actualDate.toString("dd.MM.YYYY"))) {
+                        day.setVisible(false);
+                    }
+                    items.add(day);
                 }
 
             } else
@@ -100,6 +103,9 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Day item=getItem(position);
+        if (!item.isVisible())
+            holder.base.setVisibility(View.GONE);
+
         holder.tvDay.setText(item.getDay());
         holder.tvWeekDay.setText(item.getWeekDay());
         holder.tvWeekDay.setTextColor(mDayOfWeekTextColor);
@@ -144,9 +150,11 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvDay,tvWeekDay;
+        LinearLayout base;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            base = (LinearLayout) itemView.findViewById(R.id.base);
             tvDay= (TextView) itemView.findViewById(R.id.tvDay);
             tvDay.setWidth(itemWidth);
             tvWeekDay= (TextView) itemView.findViewById(R.id.tvWeekDay);
