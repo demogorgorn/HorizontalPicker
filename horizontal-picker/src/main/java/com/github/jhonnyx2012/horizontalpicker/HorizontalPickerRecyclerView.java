@@ -163,8 +163,8 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
 
         if(adapterPosition != -1 && adapterPosition != lastPosition) {
 
-            selectItem(true, adapterPosition);
-            selectItem(false, lastPosition);
+            highlightItem(true, adapterPosition);
+            highlightItem(false, lastPosition);
             lastPosition = adapterPosition;
         }
 
