@@ -26,6 +26,10 @@ import java.util.Date;
 
 public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPickerAdapter.ViewHolder> {
 
+    public static final int MODE_HIDE_DISABLED_DAYS = 0;
+    public static final int MODE_GREY_DISABLED_DAYS = 1;
+
+
     private static final long DAY_MILLIS = AlarmManager.INTERVAL_DAY;
     private final int mBackgroundColor;
     private final int mDateSelectedTextColor;
@@ -38,13 +42,15 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
     private final OnItemClickedListener listener;
     private ArrayList<Day> items;
     private ArrayList<String> enabledDays;
+    private final int mEnabledMode;
     
 
-    public HorizontalPickerAdapter(int itemWidth, OnItemClickedListener listener, Context context, int daysToCreate, int offset, ArrayList<String> enabledDays, int mBackgroundColor, int mDateSelectedColor, int mDateSelectedTextColor, int mTodayDateTextColor, int mTodayDateBackgroundColor, int mDayOfWeekTextColor, int mUnselectedDayTextColor) {
+    public HorizontalPickerAdapter(int itemWidth, OnItemClickedListener listener, Context context, int daysToCreate, int offset, ArrayList<String> enabledDays, int enabledMode, int mBackgroundColor, int mDateSelectedColor, int mDateSelectedTextColor, int mTodayDateTextColor, int mTodayDateBackgroundColor, int mDayOfWeekTextColor, int mUnselectedDayTextColor) {
         items=new ArrayList<>();
         this.itemWidth=itemWidth;
         this.listener=listener;
         this.enabledDays=enabledDays;
+        this.mEnabledMode = enabledMode;
         generateDays(daysToCreate,new DateTime().minusDays(offset).getMillis(),false);
         this.mBackgroundColor=mBackgroundColor;
         this.mDateSelectedTextColor=mDateSelectedTextColor;
@@ -72,10 +78,17 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
                     items.add(new Day(actualDate));
                 else if (actualDate.getMillis() >= currentDate.getMillis()) {
                     Day day = new Day(actualDate);
-                    if (!enabledDays.contains(actualDate.toString("dd.MM.YYYY"))) {
-                        day.setVisible(false);
+
+                    if (mEnabledMode == MODE_GREY_DISABLED_DAYS) {
+                        if (!enabledDays.contains(actualDate.toString("dd.MM.YYYY")))
+                            day.setVisible(false);
+                        items.add(day);
+                    } else {
+                        if (enabledDays.contains(actualDate.toString("dd.MM.YYYY")))
+                            items.add(day);
                     }
-                    items.add(day);
+
+
                 }
 
             } else
@@ -117,13 +130,14 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
     public void onBindViewHolder(ViewHolder holder, int position) {
         Day item=getItem(position);
 
-        if (!item.isVisible())
-            setViewAndChildrenEnabled(holder.base, false);
-            //holder.base.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT));
-        else
-            setViewAndChildrenEnabled(holder.base, true);
+        if (mEnabledMode == MODE_GREY_DISABLED_DAYS) {
+            if (!item.isVisible())
+                setViewAndChildrenEnabled(holder.base, false);
+                //holder.base.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT));
+            else
+                setViewAndChildrenEnabled(holder.base, true);
             //holder.base.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
+        }
 
         holder.tvDay.setText(item.getDay());
         holder.tvWeekDay.setText(item.getWeekDay());
