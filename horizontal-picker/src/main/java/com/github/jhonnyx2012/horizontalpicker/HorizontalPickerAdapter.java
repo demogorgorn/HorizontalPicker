@@ -105,16 +105,11 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Day item=getItem(position);
-        
-        LinearLayout.LayoutParams params = holder.base.getLayoutParams();
-        if (!item.isVisible()) {
-            params.width = 0;
-            holder.base.setLayoutParams(params);
-        }
-        else {
-            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            holder.base.setLayoutParams(params);
-        }
+
+        if (!item.isVisible())
+            holder.base.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT));
+        else
+            holder.base.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
 
         holder.tvDay.setText(item.getDay());
