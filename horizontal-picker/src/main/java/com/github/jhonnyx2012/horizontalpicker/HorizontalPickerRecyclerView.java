@@ -78,8 +78,8 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
                             selectItem(true,position);
                             selectItem(false,lastPosition);
                         } else {
-                            highlightItem(true,position);
-                            highlightItem(false,lastPosition);
+                            //highlightItem(true,position);
+                            //highlightItem(false,lastPosition);
                             doNotFireListener = false;
                         }
 
@@ -166,9 +166,9 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
             //layoutManager.scrollToPositionWithOffset(adapterPosition, centerOfScreen);
             //layoutManager.scrollToPosition(adapterPosition);
 
-            //smoothScrollToPosition(adapterPosition);
+            smoothScrollToPosition(adapterPosition);
 
-            layoutManager.scrollToPosition(adapterPosition);
+            //layoutManager.scrollToPosition(adapterPosition);
 
             highlightItem(true, adapterPosition);
             highlightItem(false, lastPosition);
