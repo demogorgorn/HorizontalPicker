@@ -183,8 +183,11 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
 
     public int getAdapterPositionForDate(DateTime date) {
 
+        Log.d("adapter", "passed date = " + date.toString("dd.MM.yyyy"));
+
         for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getDate().toString("dd.MM.yyyy") == date.toString("dd.MM.yyyy"))
+            Log.d("adapter", "iterate items date = " + items.get(i).getDate().toString("dd.MM.yyyy"));
+            if (items.get(i).getDate().toString("dd.MM.yyyy").equals(date.toString("dd.MM.yyyy")))
                 return i;
         }
 
