@@ -111,6 +111,7 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
     private void highlightItem(boolean isSelected,int position) {
         adapter.getItem(position).setSelected(isSelected);
         adapter.notifyItemChanged(position);
+        listener.onDateHighlighted(adapter.getItem(position));
     }
 
     public void setListener(HorizontalPickerListener listener) {
@@ -150,8 +151,6 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
 
     public void setDate(DateTime date) {
         DateTime today = new DateTime().withTime(0,0,0,0);
-        Log.d("Horr", "days between = " + Days.daysBetween(date,today).getDays());
-        Log.d("Horr", "date = " + date.toString("dd.MM.yyyy"));
         int difference = Days.daysBetween(date,today).getDays() * (date.getYear() < today.getMillis() ? -1 : 1);
         smoothScrollToPosition(offset+difference);
     }
@@ -160,10 +159,6 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
         doNotFireListener = true;
 
         int adapterPosition = adapter.getAdapterPositionForDate(date);
-
-        Log.d("Highlight", "hDate date = " + date.toString("dd.MM.yyyy"));
-        Log.d("Highlight", "hDate ad pos = " + adapterPosition);
-        Log.d("Highlight", "hDate last pos = " + lastPosition);
 
         if(adapterPosition != -1 && adapterPosition != lastPosition) {
 

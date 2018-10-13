@@ -174,6 +174,16 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
         }
     }
 
+    @Override
+    public void onDateHighlighted(Day item) {
+        tvMonth.setText(item.getMonth(mMonthPattern));
+        if (showTodayButton)
+            tvToday.setVisibility(item.isToday() ? INVISIBLE : VISIBLE);
+        if (listener != null) {
+            listener.onDateHighlighted(item.getDate());
+        }
+    }
+
     public HorizontalPicker setDays(int days) {
         this.days = days;
         return this;
