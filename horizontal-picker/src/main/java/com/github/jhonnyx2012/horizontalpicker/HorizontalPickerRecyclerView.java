@@ -166,7 +166,9 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
             //layoutManager.scrollToPositionWithOffset(adapterPosition, centerOfScreen);
             //layoutManager.scrollToPosition(adapterPosition);
 
-            smoothScrollToPosition(adapterPosition);
+            //smoothScrollToPosition(adapterPosition);
+
+            layoutManager.scrollToPosition(adapterPosition);
 
             highlightItem(true, adapterPosition);
             highlightItem(false, lastPosition);
