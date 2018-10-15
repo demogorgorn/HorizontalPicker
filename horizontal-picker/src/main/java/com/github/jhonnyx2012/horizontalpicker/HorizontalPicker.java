@@ -113,7 +113,7 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
                     Log.d("HORR", "global listener recyclerViewReadyCallback != null");
                     recyclerViewReadyCallback.onLayoutReady();
                 }
-                rvDays.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
 
