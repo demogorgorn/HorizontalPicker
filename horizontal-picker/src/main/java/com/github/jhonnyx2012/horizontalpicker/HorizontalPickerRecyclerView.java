@@ -77,13 +77,15 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
                         if (!doNotFireListener) {
                             selectItem(true,position);
                             selectItem(false,lastPosition);
+                            lastPosition=position;
+
                         } else {
                             //highlightItem(true,position);
                             //highlightItem(false,lastPosition);
-                            doNotFireListener = false;
+                            //doNotFireListener = false;
                         }
 
-                        lastPosition=position;
+
                     }
                     break;
                 case SCROLL_STATE_DRAGGING:
@@ -174,6 +176,8 @@ public class HorizontalPickerRecyclerView extends RecyclerView implements OnItem
             highlightItem(false, lastPosition);
             lastPosition = adapterPosition;
         }
+
+        doNotFireListener = false;
 
         //setDate(date);
     }
