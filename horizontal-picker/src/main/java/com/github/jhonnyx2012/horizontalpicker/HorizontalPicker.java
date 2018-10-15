@@ -11,8 +11,11 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
 import org.joda.time.DateTime;
 import java.util.ArrayList;
+
+import com.github.jhonnyx2012.horizontalpicker.RecyclerViewReadyCallback;
 
 /**
  * Created by Jhonny Barrios on 22/02/2017.
@@ -41,6 +44,8 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
     private int mUnselectedDayTextColor = -1;
     private ArrayList<String> mEnabledDays = new ArrayList<>();
     private int mEnabledMode = HorizontalPickerAdapter.MODE_HIDE_DISABLED_DAYS;
+
+    private RecyclerViewReadyCallback recyclerViewReadyCallback = null;
 
     public HorizontalPicker(Context context) {
         super(context);
@@ -82,6 +87,10 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
         });
     }
 
+    public void setReadyCallback(RecyclerViewReadyCallback callback) {
+        this.recyclerViewReadyCallback = callback;
+    }
+
     public void highlightDate(final DateTime date) {
         rvDays.post(new Runnable() {
             @Override
@@ -94,6 +103,18 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
     public void init() {
         inflate(getContext(), R.layout.horizontal_picker, this);
         rvDays = (HorizontalPickerRecyclerView) findViewById(R.id.rvDays);
+
+        rvDays.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (recyclerViewReadyCallback != null) {
+                    recyclerViewReadyCallback.onLayoutReady();
+                }
+                rvDays.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
+
         int DEFAULT_DAYS_TO_PLUS = 120;
         int finalDays = days == NO_SETTED ? DEFAULT_DAYS_TO_PLUS : days;
         int DEFAULT_INITIAL_OFFSET = 7;
