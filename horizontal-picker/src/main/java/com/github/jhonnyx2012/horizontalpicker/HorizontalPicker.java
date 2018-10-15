@@ -44,6 +44,7 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
     private int mUnselectedDayTextColor = -1;
     private ArrayList<String> mEnabledDays = new ArrayList<>();
     private int mEnabledMode = HorizontalPickerAdapter.MODE_HIDE_DISABLED_DAYS;
+    private String mTodayText = null;
 
     private RecyclerViewReadyCallback recyclerViewReadyCallback = null;
 
@@ -137,6 +138,8 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
         tvMonth.setTextColor(mMonthAndYearTextColor != -1 ? mMonthAndYearTextColor : getColor(R.color.primaryTextColor));
         tvToday.setVisibility(showTodayButton ? VISIBLE : INVISIBLE);
         tvToday.setTextColor(mTodayButtonTextColor != -1 ? mTodayButtonTextColor : getColor(R.color.colorPrimary));
+        if (!empty(mTodayText))
+            tvToday.setText(mTodayText);
         int mBackgroundColor = getBackgroundColor();
         setBackgroundColor(mBackgroundColor != Color.TRANSPARENT ? mBackgroundColor : Color.WHITE);
         mDateSelectedColor = mDateSelectedColor == -1 ? getColor(R.color.colorPrimary) : mDateSelectedColor;
@@ -263,6 +266,11 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
 
     public HorizontalPicker setDayOfWeekTextColor(@ColorInt int color) {
         mDayOfWeekTextColor = color;
+        return this;
+    }
+
+    public HorizontalPicker setTodayText(String text) {
+        mTodayText = text;
         return this;
     }
 
