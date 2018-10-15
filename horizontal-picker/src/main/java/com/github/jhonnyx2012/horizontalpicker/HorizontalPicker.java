@@ -105,7 +105,7 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
         inflate(getContext(), R.layout.horizontal_picker, this);
         rvDays = (HorizontalPickerRecyclerView) findViewById(R.id.rvDays);
 
-        rvDays.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 Log.d("HORR", "global listener");
