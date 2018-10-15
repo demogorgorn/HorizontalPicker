@@ -107,7 +107,9 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
         rvDays.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+                Log.d("HORR", "global listener");
                 if (recyclerViewReadyCallback != null) {
+                    Log.d("HORR", "global listener recyclerViewReadyCallback != null");
                     recyclerViewReadyCallback.onLayoutReady();
                 }
                 rvDays.getViewTreeObserver().removeOnGlobalLayoutListener(this);
