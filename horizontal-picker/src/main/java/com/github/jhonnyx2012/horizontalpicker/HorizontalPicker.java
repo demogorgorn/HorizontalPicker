@@ -15,8 +15,6 @@ import android.widget.TextView;
 import org.joda.time.DateTime;
 import java.util.ArrayList;
 
-import com.github.jhonnyx2012.horizontalpicker.RecyclerViewReadyCallback;
-
 /**
  * Created by Jhonny Barrios on 22/02/2017.
  */
