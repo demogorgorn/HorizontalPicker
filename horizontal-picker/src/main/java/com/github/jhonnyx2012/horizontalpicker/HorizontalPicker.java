@@ -72,6 +72,11 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
         return this;
     }
 
+    public HorizontalPicker setReadyCallback(RecyclerViewReadyCallback callback) {
+        this.recyclerViewReadyCallback = callback;
+        return this;
+    }
+
     public HorizontalPicker setMonthListener(OnTouchListener listener) {
         this.monthListener = listener;
         return this;
@@ -84,10 +89,6 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
                 rvDays.setDate(date);
             }
         });
-    }
-
-    public void setReadyCallback(RecyclerViewReadyCallback callback) {
-        this.recyclerViewReadyCallback = callback;
     }
 
     public void highlightDate(final DateTime date) {
