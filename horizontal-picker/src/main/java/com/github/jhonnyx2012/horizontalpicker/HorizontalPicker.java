@@ -138,7 +138,7 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
         tvMonth.setTextColor(mMonthAndYearTextColor != -1 ? mMonthAndYearTextColor : getColor(R.color.primaryTextColor));
         tvToday.setVisibility(showTodayButton ? VISIBLE : INVISIBLE);
         tvToday.setTextColor(mTodayButtonTextColor != -1 ? mTodayButtonTextColor : getColor(R.color.colorPrimary));
-        if (!empty(mTodayText))
+        if(mTodayText != null && !mTodayText.isEmpty())
             tvToday.setText(mTodayText);
         int mBackgroundColor = getBackgroundColor();
         setBackgroundColor(mBackgroundColor != Color.TRANSPARENT ? mBackgroundColor : Color.WHITE);
