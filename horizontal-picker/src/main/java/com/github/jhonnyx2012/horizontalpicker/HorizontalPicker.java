@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.ViewTreeObserver;
+import android.util.Log;
 
 
 import org.joda.time.DateTime;
