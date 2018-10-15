@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.view.ViewTreeObserver;
 
 
 import org.joda.time.DateTime;
