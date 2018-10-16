@@ -45,6 +45,8 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
     private ArrayList<String> mEnabledDays = new ArrayList<>();
     private int mEnabledMode = HorizontalPickerAdapter.MODE_HIDE_DISABLED_DAYS;
     private String mTodayText = null;
+    private DateTime mStartDate = null;
+    private DateTime mEndDate = null;
 
     private RecyclerViewReadyCallback recyclerViewReadyCallback = null;
 
@@ -81,6 +83,16 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
 
     public HorizontalPicker setMonthListener(OnTouchListener listener) {
         this.monthListener = listener;
+        return this;
+    }
+
+    public HorizontalPicker setStartDate(DateTime startDate) {
+        this.mStartDate = startDate;
+        return this;
+    }
+
+    public HorizontalPicker setEndDate(DateTime endDate) {
+        this.mEndDate = endDate;
         return this;
     }
 
@@ -153,6 +165,8 @@ public class HorizontalPicker extends LinearLayout implements HorizontalPickerLi
                 finalOffset,
                 mEnabledDays,
                 mEnabledMode,
+                mStartDate,
+                mEndDate,
                 mBackgroundColor,
                 mDateSelectedColor,
                 mDateSelectedTextColor,

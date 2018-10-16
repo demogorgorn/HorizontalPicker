@@ -43,15 +43,22 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
     private ArrayList<Day> items;
     private ArrayList<String> enabledDays;
     private final int mEnabledMode;
+    private final DateTime mStartDate;
+    private final DateTime mEndDate;
     
 
-    public HorizontalPickerAdapter(int itemWidth, OnItemClickedListener listener, Context context, int daysToCreate, int offset, ArrayList<String> enabledDays, int enabledMode, int mBackgroundColor, int mDateSelectedColor, int mDateSelectedTextColor, int mTodayDateTextColor, int mTodayDateBackgroundColor, int mDayOfWeekTextColor, int mUnselectedDayTextColor) {
+    public HorizontalPickerAdapter(int itemWidth, OnItemClickedListener listener, Context context, int daysToCreate, int offset, ArrayList<String> enabledDays, int enabledMode, DateTime startDate, DateTime endDate, int mBackgroundColor, int mDateSelectedColor, int mDateSelectedTextColor, int mTodayDateTextColor, int mTodayDateBackgroundColor, int mDayOfWeekTextColor, int mUnselectedDayTextColor) {
         items=new ArrayList<>();
         this.itemWidth=itemWidth;
         this.listener=listener;
         this.enabledDays=enabledDays;
         this.mEnabledMode = enabledMode;
-        generateDays(daysToCreate,new DateTime().minusDays(offset).getMillis(),false);
+        this.mStartDate = startDate;
+        this.mEndDate = endDate;
+        if (mStartDate != null && mEndDate != null)
+            generateSpecifiedDays();
+        else
+            generateDays(daysToCreate,new DateTime().minusDays(offset).getMillis(),false);
         this.mBackgroundColor=mBackgroundColor;
         this.mDateSelectedTextColor=mDateSelectedTextColor;
         this.mDateSelectedColor=mDateSelectedColor;
@@ -61,12 +68,61 @@ public class HorizontalPickerAdapter extends RecyclerView.Adapter<HorizontalPick
         this.mUnselectedDayTextColor=mUnselectedDayTextColor;
     }
 
+    public  void generateSpecifiedDays() {
+
+        DateTime date = mStartDate;
+        DateTime currentDate = new DateTime();
+        boolean enabledDaysMode = enabledDays.size() > 0;
+
+        for (int e = 8; e > 1; e++ ) {
+            items.add(new Day(date.minusDays(e)));
+        }
+
+        while(date.getMillis() <= mEndDate.getMillis())
+        {
+            if (enabledDaysMode) {
+                //add offset
+
+                    Day day = new Day(date);
+
+                    if (mEnabledMode == MODE_GREY_DISABLED_DAYS) {
+                        if (!enabledDays.contains(date.toString("dd.MM.YYYY")))
+                            day.setVisible(false);
+                        items.add(day);
+                    } else {
+                        if (enabledDays.contains(date.toString("dd.MM.YYYY")))
+                            items.add(day);
+                    }
+
+
+
+
+            } else
+                items.add(new Day(date));
+
+            date.plusDays(1);
+        }
+
+        if (enabledDaysMode) {
+            if (items.size() > 0) {
+
+                for (int e = 1; e < 8; e++ ) {
+                    items.add(new Day(mEndDate.plusDays(e)));
+
+                }
+            }
+        }
+
+    }
+
     public  void generateDays(int n, long initialDate, boolean cleanArray) {
         if(cleanArray)
             items.clear();
         int i=0;
         DateTime currentDate = new DateTime();
         boolean enabledDaysMode = enabledDays.size() > 0;
+
+
 
         while(i<n)
         {
